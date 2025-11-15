@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nosso Dia — 28/03</title>
+<style>
+  :root{--bg:#fff;--card:#fff;--accent:#d6456b}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#222;margin:0;background:linear-gradient(180deg,#fff 0%, #fff0 60%), #faf0f3;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+  .wrap{max-width:960px;width:100%;background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden}
+  header{padding:18px 22px;background:linear-gradient(90deg,#ffd6e0,#fff);display:flex;align-items:center;gap:16px}
+  header h1{margin:0;font-size:18px}
+  .content{display:flex;flex-wrap:wrap}
+  .gallery{flex:1 1 420px;min-width:280px;padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center}
+  .main-photo{width:100%;max-width:520px;border-radius:12px;overflow:hidden;background:#eee}
+  .main-photo img{width:100%;height:auto;display:block}
+  .thumbs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .thumbs img{width:88px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;border:3px solid transparent}
+  .thumbs img.active{border-color:var(--accent);transform:translateY(-3px)}
+  .info{flex:0 0 320px;padding:18px;background:linear-gradient(180deg,#fff,#fff0);display:flex;flex-direction:column;gap:12px;justify-content:center}
+  .counter{font-weight:700;font-size:18px;color:#111}
+  .sub{color:#444;font-size:14px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;background:var(--accent);color:#fff;font-weight:600}
+  footer{padding:12px 18px;text-align:center;color:#666;font-size:13px}
+
+  .message-box{
+    padding: 12px;
+    background: #fdf5f7;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #333;
+    font-style: italic;
+  }
+  .message-box strong{
+    display: block;
+    margin-top: 8px;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  @media(max-width:800px){.content{flex-direction:column}.info{order:2}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(45deg,#ffd6e0,#ff9ab3);display:flex;align-items:center;justify-content:center;font-weight:700;color:#700">❤</div>
+      <h1>Nosso dia — 28 de março</h1>
+    </header>
+
+    <div class="content">
+      <div class="gallery">
+        <div class="main-photo" id="mainPhoto">
+          <img src="photo1.jpg" alt="Pedido de Casamento" id="displayImg">
+        </div>
+
+        <div class="thumbs" id="thumbs">
+          <img src="photo1.jpg" data-full="photo1.jpg" class="active" alt="Pedido">
+          <img src="photo2.jpg" data-full="photo2.jpg" alt="Jantar">
+          <img src="photo3.jpg" data-full="photo3.jpg" alt="Pôr do Sol">
+          <img src="photo4.jpg" data-full="photo4.jpg" alt="Trevi">
+        </div>
+      </div>
+
+      <div class="info">
+
+        <div class="message-box">
+          <p>
+            És a maior riqueza que Deus poderia me dar.
+            Meu coração é teu, desde o primeiro olhar, pois o Senhor me confirmou lá do alto dos céus que caminharíamos juntos nesta jornada.
+            Por ti, quero crescer a cada manhã, ser melhor a cada dia, para ser cada vez mais digno do teu sorriso e do teu amor inefável.
+            Minha joia, minha vida, minha eterna promessa de Deus.
+          </p>
+          <strong>Te amo com tudo o que sou.</strong>
+        </div>
+        <div>
+          <div class="sub">Desde</div>
+          <div style="font-size:20px;font-weight:700">28 de março de 2025</div>
+        </div>
+
+        <div>
+          <div class="sub">Tempo juntos</div>
+          <div class="counter" id="counter">Carregando…</div>
+          <div class="sub" style="margin-top:6px">Atualizado em tempo real</div>
+        </div>
+
+        <div class="btns">
+          <button class="btn" id="shareBtn">Compartilhar link</button>
+          <button class="btn" id="qrBtn">Gerar QR (abrir página externa)</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>Feito com ♥ — Dia que nos conhecemos: 28/03</footer>
+  </div>
+
+<script>
+const startDate = new Date('2025-03-28T00:00:00');
+
+function updateCounter(){
+  const now = new Date();
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  let days = now.getDate() - startDate.getDate();
+  let hours = now.getHours() - startDate.getHours();
+  let minutes = now.getMinutes() - startDate.getMinutes();
+  let seconds = now.getSeconds() - startDate.getSeconds();
+
+  if (seconds < 0){ seconds += 60; minutes -=1; }
+  if (minutes < 0){ minutes += 60; hours -=1; }
+  if (hours < 0){ hours += 24; days -=1; }
+  if (days < 0){
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += prevMonth.getDate();
+    months -= 1;
+  }
+  if (months < 0){ months += 12; years -=1; }
+
+  const parts = [];
+  if (years>0) parts.push(years + (years===1?' ano':' anos'));
+  if (months>0) parts.push(months + (months===1?' mês':' meses'));
+  if (days>0) parts.push(days + (days===1?' dia':' dias'));
+  parts.push(String(hours).padStart(2,'0') + ':' + String(minutes).padStart(2,'0') + ':' + String(seconds).padStart(2,'0'));
+
+  document.getElementById('counter').textContent = parts.join(' • ');
+}
+setInterval(updateCounter, 1000);
+updateCounter();
+
+document.getElementById('thumbs').addEventListener('click', function(e){
+  const t = e.target;
+  if (t.tagName !== 'IMG') return;
+  document.querySelectorAll('#thumbs img').forEach(i=>i.classList.remove('active'));
+  t.classList.add('active');
+  const full = t.dataset.full || t.src;
+  document.getElementById('displayImg').src = full;
+});
+
+document.getElementById('shareBtn').addEventListener('click', async()=>{
+  const url = location.href;
+  if (navigator.share){
+    try{
+      await navigator.share({title: document.title, text: 'Nossas fotos desde 28/03', url});
+    }catch(e){}
+  } else {
+    try{
+      await navigator.clipboard.writeText(url);
+      alert('Link copiado: cole onde quiser (ou gere o QR).');
+    }catch(err){
+      prompt('Copie este link:', url);
+    }
+  }
+});
+
+document.getElementById('qrBtn').addEventListener('click', ()=>{
+  const url = encodeURIComponent(location.href);
+  window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + url, '_blank');
+});
+</script>
+</body>
+</html>
